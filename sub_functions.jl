@@ -40,7 +40,8 @@ function fnc_distance(FF,CC,MI)
     Dy[i.>1] = -sign(Dy[i.>1]).*(GRD_mx .- abs(Dy[i.>1]));
 
     ## Distance
-@devec    D = sqrt(Dx.^2 + Dy.^2); #! This line takes 40% of computation
+#@devec    
+D = sqrt(Dx.^2 + Dy.^2); #! This line takes 40% of computation
 
         # search/steam switch
 	tempRand = rand(PC_n);
@@ -82,7 +83,8 @@ function fnc_information(D,Dx,Dy,DXY,MI,CN,id)
         JJ = DDi[II][1];
         # calculate unit vector DXY to nearest fish
         DXY = [Dx[id,JJ][1] Dy[id,JJ][1]];
-@devec        DXY = DXY ./ sqrt(DXY[1].^2 + DXY[2].^2);
+#@devec        
+    DXY = DXY ./ sqrt(DXY[1].^2 + DXY[2].^2);
 
         if Dmin <= PC_h #if there's a fish within view
             # probabilistic catch; if successful, then catch fish

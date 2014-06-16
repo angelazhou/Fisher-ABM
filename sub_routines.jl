@@ -49,6 +49,10 @@ end
 
 #### Run a season
 function make_equilibrium(SN)
+
+    ## ST value
+    ST_FLAG = 1;
+
     ## setup running stats
     TT = 1;
     M  = zeros(PC_n); # running mean CPUE
@@ -56,12 +60,12 @@ function make_equilibrium(SN)
 
     ## Run initial season
     fish,cons = init_equilibrium();
-    make_season(fish,cons,SN,0);
+    make_season(fish,cons,SN,ST_FLAG);
     M = cons.cs ./ cons.Dist; # initial CPUe
 
     ## Run second season
     fish,cons = init_equilibrium(); #initialize locations and constants, etc
-    make_season(fish,cons,SN,0);
+    make_season(fish,cons,SN,ST_FLAG);
     M,S,TT = fnc_stats(M,S,cons.cs./cons.Dist,TT);
     df = M;
 
@@ -71,7 +75,7 @@ function make_equilibrium(SN)
                                  #! "While someone is still harvesting something worthwhile"
     ## run model
         fish,cons = init_equilibrium();
-        make_season(fish,cons,SN,0);
+        make_season(fish,cons,SN,ST_FLAG);
 
         ## calculate running stats
         m,S,TT = fnc_stats(M,S,cons.cs./cons.Dist,TT);

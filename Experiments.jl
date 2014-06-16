@@ -3,13 +3,13 @@
 function sim_simple()
 
 sn = linspace(1e-6,1,10);   # types of prosociality
-rp = 1; # number of repeats
+rp = 10; # number of repeats
 CPUE = Array(Float64,length(sn),rp);
 Tau  = Array(Float64,length(sn),rp);
 
 for i = 1:length(sn)
 	for j = 1:rp
-	     # 	print("rp #: ")
+	    print("rp #: ")
 		println(rp)
 		## modulate social network
 		SN = ones(PC_n,PC_n) .* sn[i];
@@ -24,7 +24,7 @@ for i = 1:length(sn)
 		CPUE[i,j] = mean(cons.cs ./ cons.Dist);
 		Tau[i,j]  = mean(cons.Dist);
 	end
-	print(i/length(sn))
+	println(i/length(sn))
 end
 return CPUE, Tau
 end
