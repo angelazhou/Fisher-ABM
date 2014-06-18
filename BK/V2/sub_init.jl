@@ -42,7 +42,7 @@ SN = ones(PC_n,PC_n) .* eps();
 for j = 1:PC_n; SN[j,j] = 1; end;
 
 ##### Initialize output storage
-global OUT        = Output(Fish_fx,Cons_xy,Fish_sx,Cons_H,Cons_cn);
+OUT        = Output(Fish_fx,Cons_xy,Fish_sx,Cons_H);
 
 return fish,cons,SN,OUT
 end
