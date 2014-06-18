@@ -41,6 +41,7 @@ while minimum(cons.cs) .< (PF_n*PS_n)
         OUT.cons_xy = cat(3,OUT.cons_xy,cons.x);
         OUT.schl_xy = cat(3,OUT.schl_xy,fish.sx);
         OUT.cons_H  = cat(2,OUT.cons_H,cons.H);
+	OUT.cons_CN = cat(1,OUT.cons_CN,cons.CN);  
     end
 end
 return

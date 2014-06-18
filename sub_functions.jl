@@ -5,21 +5,47 @@
 #! If random numbers are less than adjacency measure (friendship) they both
 #! contact; else both do not contact. Return the network 2D array.
 function fnc_contact(SN,CN)
-for i = 1:PC_n
-    for j = i:PC_n
-        f1 = SN[i,j];
-        f2 = SN[j,i];
-        RN = rand(2,1);
+# for i = 1:PC_n
+#     for j = i:PC_n
+#         f1 = SN[i,j];
+#         f2 = SN[j,i];
+#         RN = rand(2,1);
+#         if RN[1] < f1 && RN[2] < f2
+#             CN[i,j] = 1;
+#             CN[j,i] = 1;
+#         else
+#             CN[i,j] = 0;
+#             CN[j,i] = 0;
+#         end
+#     end
+# end
 
-        if RN[1] < f1 && RN[2] < f2
-            CN[i,j] = 1;
-            CN[j,i] = 1;
-        else
-            CN[i,j] = 0;
-            CN[j,i] = 0;
-        end
-    end
-end
+ for i = 1:PC_n
+         CN[i,i] = 1; 
+ end
+
+
+###Scenario one: one strong connection
+#    CN[1,2] = 1;
+#    CN[2,1] = 1; 
+
+
+###Scenario two: one SCC clique
+#     CN[1,2] = 1;
+#     CN[2,1] = 1; 
+#     CN[1,3] = 1;
+#     CN[3,1] = 1; 
+#     CN[2,3] = 1; 
+#     CN[3,2] = 1; 
+
+
+###Scenario three: all connected
+# for i = 1:PC_n
+#     for j = i:PC_n
+#         CN[i,j] = 1;
+#         CN[j,i] = 1; 
+#     end
+# end
 return CN
 end
 
@@ -36,12 +62,18 @@ function fnc_distance(FF,CC,MI)
     ## periodic boundaries
           GRD_mx_half = GRD_mx/2
     i = (abs(Dx).>(GRD_mx_half)) + (abs(Dy).>(GRD_mx_half));
-    Dx[i.>1] = -sign(Dx[i.>1]).*(GRD_mx .- abs(Dx[i.>1]));
-    Dy[i.>1] = -sign(Dy[i.>1]).*(GRD_mx .- abs(Dy[i.>1]));
+    #Devectorized version of below
+    for j in length(Dx)
+    	if i[j] > 0
+	   Dx[j] = -sign(Dx[j]).*(GRD_mx - abs(Dx[j]));     
+	   Dy[j] = -sign(Dy[j]) * (GRD_mx - abs(Dx[j]));
+	end
+    end
+    #Dx[i.>1] = -sign(Dx[i.>1]).*(GRD_mx .- abs(Dx[i.>1]));
+    #Dy[i.>1] = -sign(Dy[i.>1]).*(GRD_mx .- abs(Dy[i.>1]));
 
     ## Distance
-#@devec    
-D = sqrt(Dx.^2 + Dy.^2); #! This line takes 40% of computation
+@devec  D = sqrt(Dx.^2 + Dy.^2); #! This line takes 40% of computation
 
         # search/steam switch
 	tempRand = rand(PC_n);
@@ -83,8 +115,7 @@ function fnc_information(D,Dx,Dy,DXY,MI,CN,id)
         JJ = DDi[II][1];
         # calculate unit vector DXY to nearest fish
         DXY = [Dx[id,JJ][1] Dy[id,JJ][1]];
-#@devec        
-    DXY = DXY ./ sqrt(DXY[1].^2 + DXY[2].^2);
+@devec DXY = DXY ./ sqrt(DXY[1].^2 + DXY[2].^2);
 
         if Dmin <= PC_h #if there's a fish within view
             # probabilistic catch; if successful, then catch fish

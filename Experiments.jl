@@ -3,7 +3,7 @@
 function sim_simple()
 
 sn = linspace(1e-6,1,10);   # types of prosociality
-rp = 10; # number of repeats
+rp = 1; # number of repeats
 CPUE = Array(Float64,length(sn),rp);
 Tau  = Array(Float64,length(sn),rp);
 
@@ -18,8 +18,11 @@ for i = 1:length(sn)
 
 		## run model
 		fish,cons,OUT = init_equilibrium();
-		make_season(fish,cons,SN,0);
-
+		if i == 1
+		   make_season(fish,cons,SN,1);
+		else 
+		   make_season(fish,cons,SN,0);
+		end
 		## record
 		CPUE[i,j] = mean(cons.cs ./ cons.Dist);
 		Tau[i,j]  = mean(cons.Dist);

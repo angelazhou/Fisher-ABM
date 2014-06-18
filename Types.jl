@@ -12,18 +12,18 @@ end
 
 #### Define Fisher type
 type Fishers
-    x::Array{Float64,2} # location
-    H::Array{Float64,1} # harvest count
-    S::Array{Int32,1} # make(1)/break(-1) friendships
-    MI::Array{Int64,1} # index of steaming or searching
-    CN::Array{Int64,2} # contact network
-    Dmin::Array{Float64,1} # distance to nearest fish
-    DXY::Array{Float64,2} # direction vector (unit)
-    VR::Array{Float64,1} # speed
-    JJ::Array{Int64,1} # index of nearest fish
-    KK::Array{Int64,1} # 1/0 harvest index
-    cs::Array{Float64,1} # cumulative harvest
-    Dist::Array{Float64,1} # cumulative distance traveled 
+    x::Array{Float64} # location
+    H::Array{Float64} # harvest count
+    S::Array{Int} # make(1)/break(-1) friendships
+    MI::Array{Int} # index of steaming or searching
+    CN::Array{Int} # contact network
+    Dmin::Array{Float64} # distance to nearest fish
+    DXY::Array{Float64} # direction vector (unit)
+    VR::Array{Float64} # speed
+    JJ::Array{Int} # index of nearest fish
+    KK::Array{Int} # 1/0 harvest index
+    cs::Array{Float64} # cumulative harvest
+    Dist::Array{Float64} # cumulative distance traveled 
 end
 
 #### Output variable for plotting
@@ -32,6 +32,7 @@ type Output
     cons_xy::Array{Float64}
     schl_xy::Array{Float64}
     cons_H::Array{Float64}
+    cons_CN::Array{Int}
 end
 
 end
