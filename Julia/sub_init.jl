@@ -46,7 +46,7 @@ Cons_s = convert(Array{Int32,1}, Cons_s)
 cons = Fishers(Cons_xy,Cons_H,Cons_s,MI,Cons_cn,Dmin,DXY,VR,JJ,KK,cs,D);
 
 ##### Initialize output storage
-OUT        = Output(Fish_fx,Cons_xy,Fish_sx,Cons_H);
+global OUT        = Output(Fish_fx,Cons_xy,Fish_sx,Cons_H,Cons_cn);
 
 return fish,cons,OUT
 end

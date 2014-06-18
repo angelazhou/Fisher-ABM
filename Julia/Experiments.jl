@@ -9,7 +9,7 @@ Tau  = Array(Float64,length(sn),rp);
 
 for i = 1:length(sn)
 	for j = 1:rp
-	     # 	print("rp #: ")
+	    print("rp #: ")
 		println(rp)
 		## modulate social network
 		SN = ones(PC_n,PC_n) .* sn[i];
@@ -18,13 +18,16 @@ for i = 1:length(sn)
 
 		## run model
 		fish,cons,OUT = init_equilibrium();
-		make_season(fish,cons,SN,0);
-
+		if i == 1
+		   make_season(fish,cons,SN,1);
+		else 
+		   make_season(fish,cons,SN,0);
+		end
 		## record
 		CPUE[i,j] = mean(cons.cs ./ cons.Dist);
 		Tau[i,j]  = mean(cons.Dist);
 	end
-	print(i/length(sn))
+	println(i/length(sn))
 end
 return CPUE, Tau
 end

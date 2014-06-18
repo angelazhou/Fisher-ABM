@@ -7,14 +7,15 @@ import os
 os.system("rm -f ./Movie/*.png")
 
 ## Load in data
-Fish = np.load("../Data/Data_fish.npy")
-Cons = np.load("../Data/Data_fishers.npy")
-Clus = np.load("../Data/Data_clusters.npy")
+Fish = np.load("../Data/Data_fish_connected.npy")
+Cons = np.load("../Data/Data_fishers_connected.npy")
+Clus = np.load("../Data/Data_clusters_connected.npy")
 
 ## plot
 
+#need to be multidimensional arrays concatenated along 3rd axis (time) 
 for i in np.arange(0,Fish.shape[2]):
-
+    print i
     x   = Fish[:,0,i];
     y   = Fish[:,1,i];
     xc  = Cons[:,0,i];

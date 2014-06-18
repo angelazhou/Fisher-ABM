@@ -1,8 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from sys import argv
 
+script, argument = argv
 ## Load in data
-Data = np.load("../Data/Data_simple.npz")
+Data = np.load("../Data/Data_simple_" + argument + ".npz")
 CPUE = Data['CPUE']
 Tau  = Data['Tau']
 
@@ -32,5 +34,5 @@ ax1.set_xlabel('Cooperation', color='k',fontsize=14)
 ax1.set_ylabel('CPUE', color=[1,.7,.25],fontsize=14)
 ax2.set_ylabel('Fishing Time', color=[.3,.3,.3],fontsize=14)
 
-plt.savefig('./PDF/Fig_simple.pdf',dpi=600,bbox_inches='tight')
+plt.savefig('./PDF/Fig_simple_' + argument + '.pdf',dpi=600,bbox_inches='tight')
 

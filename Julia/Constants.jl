@@ -29,6 +29,7 @@ const PC_r2   = .01; # correlated random walk constant (search)
 const PC_rp   = 0.05; # steam / search switching probability
 
 ##### Parameters that are derived
+#currently 0.032
 const PS_p   = 1 ./ (4.*(GRD_mx ./ (2*PC_v))); # probability school will move
 const PC_q	 = 0.1; # prob of catching fish
 const PC_f   = PF_sig; # radius of fish finder (km)
