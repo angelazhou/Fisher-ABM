@@ -35,14 +35,16 @@ JJ  	 = zeros(Int,PC_n); # index of nearest fish (0 if nothing near)
 KK  	 = zeros(Int,PC_n); # index of catch [0,1]
 cs  	 = zeros(Float64,PC_n);
 D   	 = ones(Float64,PC_n);
-cons = Fishers(Cons_xy,Cons_H,Cons_s,MI,Cons_cn,Dmin,DXY,VR,JJ,KK,cs,D);
+Dist_s_R = zeros(Float64,PC_n); 
+cons = Fishers(Cons_xy,Cons_H,Cons_s,MI,Cons_cn,Dmin,DXY,VR,JJ,KK,cs,D,Dist_s_R);
 
 ##### Init Social network (no friends)
 SN = ones(PC_n,PC_n) .* eps();
 for j = 1:PC_n; SN[j,j] = 1; end;
 
 ##### Initialize output storage
-global OUT        = Output(Fish_fx,Cons_xy,Fish_sx,Cons_H,Cons_cn);
+
+global OUT        = Output(Array[ Fish_fx ],Array[ Cons_xy ],Array[ Fish_sx ], Array[ Cons_H ],Array[ Cons_cn ]);
 
 return fish,cons,SN,OUT
 end

@@ -2,10 +2,12 @@
 #### Run a season
 function make_season(fish,cons,SN,ST)
 
+global TIME = 0;
+time_of_first_school = 0; 
 #while min of cumulative harvest is less than all fish in the region
 while minimum(cons.cs) .< (PF_n*PS_n)
-            #! stops when every fisherman has caught the # fish in the system
-
+            #! stops when every fisherman has caught the # fish in the systemq
+	TIME += 1;
     ## Distances
     #!calculate distances between fish and fishermen? + search/steam switch
     D,Dx,Dy,cons.MI = fnc_distance(fish.fx,cons.x,cons.MI);
@@ -20,9 +22,8 @@ while minimum(cons.cs) .< (PF_n*PS_n)
         ## gather information
         #! return nearest distance, updated heading for nearest fish,
         #! index of nearest fish, harvest success/failure index,
-        (cons.Dmin[i],cons.DXY[i,:],cons.JJ[i],cons.KK[i]) =
+        (cons.Dmin[i],cons.DXY[i,:],cons.JJ[i],cons.KK[i],time_of_first_school) =
             fnc_information(D,Dx,Dy,cons.DXY[i,:],cons.MI[i],cons.CN,i);
-
     end
 
     ## Harvest
@@ -37,12 +38,13 @@ while minimum(cons.cs) .< (PF_n*PS_n)
 
 	## Storage for plotting
     if ST == 1
-        OUT.fish_xy = cat(3,OUT.fish_xy,fish.fx);
-        OUT.cons_xy = cat(3,OUT.cons_xy,cons.x);
-        OUT.schl_xy = cat(3,OUT.schl_xy,fish.sx);
-        OUT.cons_H  = cat(2,OUT.cons_H,cons.H);
-	OUT.cons_CN = cat(1,OUT.cons_CN,cons.CN);  
+        OUT.fish_xy = push!(OUT.fish_xy,fish.fx);
+        OUT.cons_xy = push!(OUT.cons_xy,cons.x);
+        OUT.schl_xy = push!(OUT.schl_xy,fish.sx);
+        OUT.cons_H  = push!(OUT.cons_H,cons.H);
+	  
     end
 end
-return
+return time_of_first_school
+
 end

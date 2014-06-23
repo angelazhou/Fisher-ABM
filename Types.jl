@@ -24,15 +24,16 @@ type Fishers
     KK::Array{Int} # 1/0 harvest index
     cs::Array{Float64} # cumulative harvest
     Dist::Array{Float64} # cumulative distance traveled 
+    Dist_s_R::Array{Float64} # record time of first school encounter
 end
 
 #### Output variable for plotting
 type Output
-    fish_xy::Array{Float64}
-    cons_xy::Array{Float64}
-    schl_xy::Array{Float64}
-    cons_H::Array{Float64}
-    cons_CN::Array{Int}
+    fish_xy::Array{Array}
+    cons_xy::Array{Array}
+    schl_xy::Array{Array}
+    cons_H::Array{Array}
+    cons_CN::Array{Array}
 end
 
 end

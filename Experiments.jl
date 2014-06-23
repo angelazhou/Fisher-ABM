@@ -5,6 +5,8 @@ sn = linspace(1e-6,1,10);   # types of prosociality
 trips = 20; # number of repeats
 CPUE = Array(Float64,length(sn),trips);
 Tau  = Array(Float64,length(sn),trips);
+Tau_s_R = Array(Float64,length(sn),trips); 
+#Tau_s_I = Array(Float64,length(sn),trips); 
 for i = 1:length(sn)
 	## modulate social network
 	SN = ones(PC_n,PC_n) .* sn[i];
@@ -14,16 +16,18 @@ for i = 1:length(sn)
 
 		## run model
 		fish,cons,OUT = init_equilibrium();
-		make_season(fish,cons,SN,0);
+		time_to_first_school = make_season(fish,cons,SN,1);
 
 		## record
 		CPUE[i,j] = mean(cons.cs ./ cons.Dist);
 		Tau[i,j]  = mean(cons.Dist);
+		#is this a vector or scalar quantity?
+		Tau_s_R[i,j] = time_to_first_school;
 	end
 	print(i/length(sn))
 
 end
-return CPUE, Tau
+return CPUE, Tau, Tau_s_R;
 end
 
 

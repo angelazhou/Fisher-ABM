@@ -92,7 +92,8 @@ end
 #! (KK) whether or not you caught something (?)
 
 function fnc_information(D,Dx,Dy,DXY,MI,CN,id)
-    # Who you will get info from
+    first_time = 0;     
+# Who you will get info from
     # get the vector of people with whom you are currently in contact
     j = find(CN[id,:].==1); #!OPT devectorize this 
 
@@ -108,6 +109,11 @@ function fnc_information(D,Dx,Dy,DXY,MI,CN,id)
 
     # find nearest fish
     if isempty(DD)==0 # if I see something
+	if cons.Dist_s_R[id] != 0
+		first_time = TIME; 
+		println("fish found"); 
+	end
+
         Dmin = minimum(DD);
         II = find(DD .== Dmin); #!find index of lowest distance?
         JJ = DDi[II][1];
@@ -137,7 +143,7 @@ function fnc_information(D,Dx,Dy,DXY,MI,CN,id)
         end
     end
 
-    return Dmin,DXY,JJ,KK
+    return Dmin,DXY,JJ,KK,first_time
 end
 
 
