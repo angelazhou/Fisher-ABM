@@ -23,7 +23,7 @@ for j = 1:PC_n; SN[j,j] = 1; end;
 
 
 
-# @time CPUE,Tau = sim_simple()
+#@time CPUE,Tau = sim_simple()
 #println(CPUE)
 #println(Tau)
 

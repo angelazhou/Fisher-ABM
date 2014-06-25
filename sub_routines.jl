@@ -38,10 +38,10 @@ while minimum(cons.cs) .< (PF_n*PS_n)
 
 	## Storage for plotting
     if ST == 1
-        OUT.fish_xy = push!(OUT.fish_xy,fish.fx);
-        OUT.cons_xy = push!(OUT.cons_xy,cons.x);
-        OUT.schl_xy = push!(OUT.schl_xy,fish.sx);
-        OUT.cons_H  = push!(OUT.cons_H,cons.H);
+        OUT.fish_xy = cat(3,OUT.fish_xy,fish.fx);
+        OUT.cons_xy = cat(3,OUT.cons_xy,cons.x);
+        OUT.schl_xy = cat(3,OUT.schl_xy,fish.sx);
+        OUT.cons_H  = cat(3,OUT.cons_H,cons.H);
 	  
     end
 end
