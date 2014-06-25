@@ -16,7 +16,7 @@ for i = 1:length(sn)
 
 		## run model
 		fish,cons,OUT = init_equilibrium();
-		time_to_first_school = make_season(fish,cons,SN,1);
+		time_to_first_school = make_trip(fish,cons,SN,0);
 
 		## record
 		CPUE[i,j] = mean(cons.cs ./ cons.Dist);
@@ -70,7 +70,7 @@ for i = 2:seasons # greedy search over seasons
 
 		## run model
 		fish,cons = init_equilibrium();
-		make_season(fish,cons,SN,0);
+		make_trip(fish,cons,SN,0);
 
 		## record
 		cpue[j] = mean(cons.cs ./ cons.Dist);

@@ -1,6 +1,6 @@
 
 #### Run a season
-function make_season(fish,cons,SN,ST)
+function make_trip(fish,cons,SN,ST)
 
 global TIME = 0;
 time_of_first_school = 0; 
