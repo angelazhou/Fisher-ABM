@@ -1,5 +1,6 @@
 ## helper function for parallelization 
-@everywhere function parallel_trip(xy::Array)
+## DEPRECATED
+@everywhere function parallel_trip_DEPRECATED(xy::Array)
 		## run model
 		xy[1] = i;
 		xy[2] = j; 
@@ -14,15 +15,21 @@ end
 
 ## simulate a simple scenario
 function sim_simple()
-sn = linspace(1e-6,1,10);   # types of prosociality
+
+##
+##6/30 modification: parametrizing sn by PC_n 
+sn = linspace(1e-6,1,PC_n);   # types of prosociality
 trips = 20; # number of repeat## Change CPUE, Tau to shared arrays (?) 
 
-#global s_CPUE = SharedArray(Float64, (length(sn), trips)); 
 
-#global s_Tau = SharedArray(Float64, (length(sn), trips)); 
-#global s_Tau_s_R = SharedArray(Float64, (length(sn), trips)); 
+s_CPUE = SharedArray(Float64, (length(sn), trips)); 
 
-CPUE = Array(Float64, length(sn), trips);
+s_CPUE_int = SharedArray(Float64, trips); 
+s_Tau = SharedArray(Float64, (length(sn), trips)); 
+s_Tau_s_R = SharedArray(Float64, (length(sn), trips)); 
+
+CPUE = Array(Float64, length(sn));
+CPUE_var = Array(Float64, length(sn)); 
 Tau = Array(Float64, length(sn)); 
 Tau_s_R = Array(Float64, length(sn)); 
 
@@ -36,22 +43,29 @@ for i = 1:length(sn)
 		## tripV is a vector of tuples [i, trip id] 
 		#map the parallel trips
 		
-		sum_CPUE = @parallel (+) for i=1:trips
+		sum_Tau = @parallel (+) for j=1:trips
 			fish,cons,OUT = init_equilibrium();
 			#println(cons)
 			time_to_first_school = make_trip(fish,cons,SN,0);
-			mean(cons.cs ./ cons.Dist); 
+			#save the CPUE of each trip 
+			s_CPUE_int[j] = mean(cons.cs ./ cons.Dist);  
+			s_Tau_s_R[i,j] = time_to_first_school; 
+			mean(cons.Dist); #return sum of Tau
 		end
-		mean_CPUE = sum_CPUE / trips;
+		mean_Tau = sum_Tau / trips; 
+		Tau[k] = mean_Tau; 
+		mean_CPUE = mean(s_CPUE_int); 
+		CPUE[k] = mean_CPUE; 
+		CPUE_var[k] = var(s_CPUE_int); 
+		#calculate average time spent over the trips and write
+		#for this specific fisherman
+		 
 		println("mean for fisherman $k is $mean_CPUE"); 
-		CPUE[i] = mean_CPUE; 
 	end	
-	print(i/length(sn))
-
-
+	println(i/length(sn))
 end
-
-return CPUE;
+#Return final CPUE results as well as intermediate calculations 
+return CPUE, s_CPUE_int, CPUE_var, Tau, s_Tau_s_R;
 #, mean(s_Tau), mean(s_Tau_s_R);
 end
 

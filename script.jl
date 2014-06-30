@@ -28,9 +28,11 @@ println("Libraries loaded: working:")
 
 
 
-@time CPUE = sim_simple()
-println(CPUE)
-#println(Tau)
+@time CPUE,s_CPUE_int, CPUE_var, Tau, s_Tau_s_R = sim_simple()
+println("new mean-CPUE array: $CPUE")
+println("Intermediate CPUE array: $s_CPUE_int")
+println("Average Tau: ", mean(Tau))
+println("Average time to first school: ", (s_Tau_s_R))
 
 
 #npzwrite("Data_fish_randomnetwork.npz", OUT.fish_xy)
