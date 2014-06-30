@@ -22,7 +22,7 @@ while minimum(cons.cs) .< (PF_n*PS_n)
         ## gather information
         #! return nearest distance, updated heading for nearest fish,
         #! index of nearest fish, harvest success/failure index,
-        (cons.Dmin[i],cons.DXY[i,:],cons.JJ[i],cons.KK[i],time_of_first_school) =
+        (cons.Dmin[i],cons.DXY[i,:],cons.JJ[i],cons.KK[i]) =
             fnc_information(D,Dx,Dy,cons.DXY[i,:],cons.MI[i],cons.CN,i,cons.Dist_s_R);
     end
 

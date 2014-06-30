@@ -112,10 +112,6 @@ function fnc_information(D,Dx,Dy,DXY,MI,CN,id,D_s_R)
     # find nearest fish
     if isempty(DD)==0 # if I see something
 	
-	if D_s_R[id] == 0
-		D_s_R[id] = TIME;
-		first_time = TIME; 
-	end
 
         Dmin = minimum(DD);
         II = find(DD .== Dmin); #!find index of lowest distance?
@@ -126,6 +122,12 @@ function fnc_information(D,Dx,Dy,DXY,MI,CN,id,D_s_R)
 	@devec DXY = DXY ./ sqrt(DXY[1].^2 + DXY[2].^2);
 
         if Dmin <= PC_h #if there's a fish within view
+
+
+		if D_s_R[id] == 0
+			D_s_R[id] = TIME;
+		end
+
             # probabilistic catch; if successful, then catch fish
             r =rand();if r < PC_q;KK = 1;else;KK = 0;end
         else
@@ -145,8 +147,7 @@ function fnc_information(D,Dx,Dy,DXY,MI,CN,id,D_s_R)
         	DXY = DXY ./ sqrt(DXY[1].^2 + DXY[2].^2);
         end
     end
-
-    return Dmin,DXY,JJ,KK,first_time
+    return Dmin,DXY,JJ,KK
 end
 
 

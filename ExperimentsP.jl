@@ -26,7 +26,7 @@ s_CPUE = SharedArray(Float64, (length(sn), trips));
 
 s_CPUE_int = SharedArray(Float64, trips); 
 s_Tau = SharedArray(Float64, (length(sn), trips)); 
-s_Tau_s_R = SharedArray(Float64, (length(sn), trips)); 
+s_Tau_s_R_int = SharedArray(Float64, (length(sn), trips)); 
 
 CPUE = Array(Float64, length(sn));
 CPUE_var = Array(Float64, length(sn)); 
@@ -45,15 +45,15 @@ for i = 1:length(sn)
 		
 		sum_Tau = @parallel (+) for j=1:trips
 			fish,cons,OUT = init_equilibrium();
-			#println(cons)
 			time_to_first_school = make_trip(fish,cons,SN,0);
 			#save the CPUE of each trip 
 			s_CPUE_int[j] = mean(cons.cs ./ cons.Dist);  
-			s_Tau_s_R[i,j] = time_to_first_school; 
+			s_Tau_s_R_int[j] = mean(cons.Dist_s_R); 
 			mean(cons.Dist); #return sum of Tau
 		end
 		mean_Tau = sum_Tau / trips; 
 		Tau[k] = mean_Tau; 
+		Tau_s_R[k] = mean(s_Tau_s_R_int); 
 		mean_CPUE = mean(s_CPUE_int); 
 		CPUE[k] = mean_CPUE; 
 		CPUE_var[k] = var(s_CPUE_int); 
@@ -65,7 +65,7 @@ for i = 1:length(sn)
 	println(i/length(sn))
 end
 #Return final CPUE results as well as intermediate calculations 
-return CPUE, s_CPUE_int, CPUE_var, Tau, s_Tau_s_R;
+return CPUE, s_CPUE_int, CPUE_var, Tau, Tau_s_R;
 #, mean(s_Tau), mean(s_Tau_s_R);
 end
 
