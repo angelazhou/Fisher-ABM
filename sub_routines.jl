@@ -1,6 +1,6 @@
 
 #### Run a season
-function make_trip(fish,cons,SN,ST)
+@everywhere function make_trip(fish,cons,SN,ST)
 
 global TIME = 0;
 time_of_first_school = 0; 
@@ -15,7 +15,7 @@ while minimum(cons.cs) .< (PF_n*PS_n)
     ## Contact network from probabilistic social network
     #!randomly decide if entities contact each other depending on current friendship ?
     fnc_contact(SN,cons.CN); # updates cons.CN
-
+    #println(cons)
     ## Individual actions
     for i = 1:PC_n
 
@@ -23,7 +23,7 @@ while minimum(cons.cs) .< (PF_n*PS_n)
         #! return nearest distance, updated heading for nearest fish,
         #! index of nearest fish, harvest success/failure index,
         (cons.Dmin[i],cons.DXY[i,:],cons.JJ[i],cons.KK[i],time_of_first_school) =
-            fnc_information(D,Dx,Dy,cons.DXY[i,:],cons.MI[i],cons.CN,i);
+            fnc_information(D,Dx,Dy,cons.DXY[i,:],cons.MI[i],cons.CN,i,cons.Dist_s_R);
     end
 
     ## Harvest

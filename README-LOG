@@ -1,5 +1,10 @@
 Agent Based Model for the CNH project
 
+6/30 --------------------------
+Parallelized code. Incorporated initial extraction of tau_s_r. OUT temporarily not operational. 
+
+
+
 6/13 --------------------------
 **New Dependencies: Devectorize.jl (optimize devectorized code with minimal modifications) https://github.com/lindahua/Devectorize.jl 
 Devectorize operates on: +,-,.+,.-,.*,./,.^,max,min,clamp,blend,.==,.!=,.<,.>, .<=, .>=, sqrt, cbrt, sqr, .... etc... 

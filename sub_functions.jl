@@ -90,8 +90,10 @@ end
 #! randomly according to a self-correlated walk that approximates search behavior according to a Levy walk
 #! Return the minimum distance, updated heading, JJ index of nearest fish
 #! (KK) whether or not you caught something (?)
+#! fnc_information takes in the parameters: D_s_R is indicator array of whether 
+#! fisherman has already seen a fish
 
-function fnc_information(D,Dx,Dy,DXY,MI,CN,id)
+function fnc_information(D,Dx,Dy,DXY,MI,CN,id,D_s_R)
     first_time = 0;     
 # Who you will get info from
     # get the vector of people with whom you are currently in contact
@@ -109,9 +111,10 @@ function fnc_information(D,Dx,Dy,DXY,MI,CN,id)
 
     # find nearest fish
     if isempty(DD)==0 # if I see something
-	if cons.Dist_s_R[id] != 0
+	
+	if D_s_R[id] == 0
+		D_s_R[id] = TIME;
 		first_time = TIME; 
-		println("fish found"); 
 	end
 
         Dmin = minimum(DD);

@@ -1,5 +1,5 @@
 ###### PRAMETERS / CONSTANTS for running the model to equilibrium
-function init_equilibrium()
+@everywhere function init_equilibrium()
 
 #### Initialize fish
 function fnc_init_fish(PF_sig)
@@ -43,11 +43,6 @@ SN = ones(PC_n,PC_n) .* eps();
 for j = 1:PC_n; SN[j,j] = 1; end;
 
 ##### Initialize output storage
-Fish_fx_series = [Fish_fx; zeros(PF_n) ]; 
-Cons_xy_series = [Cons_xy; zeros(PC_n) ];
-Fish_sx_series = [Fish_sx; zeros(PF_n) ];
-Cons_H_series = [Cons_H; zeros(PC_n) ];
-Cons_cn_series = [Cons_cn; zeros(PC_n) ];
 global OUT        = Output(Fish_fx, Cons_xy, Fish_sx, Cons_H , Cons_cn);
 
 return fish,cons,SN,OUT
