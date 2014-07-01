@@ -15,12 +15,9 @@ end
 
 ## simulate a simple scenario
 function sim_simple()
+sn = linspace(1e-6,1,10);   # types of prosociality
 
-##
-##6/30 modification: parametrizing sn by PC_n 
-sn = linspace(1e-6,1,PC_n);   # types of prosociality
-trips = 20; # number of repeat## Change CPUE, Tau to shared arrays (?) 
-
+trips = 1; # number of repeat## Change CPUE, Tau to shared arrays (?) 
 
 s_CPUE = SharedArray(Float64, (length(sn), trips)); 
 
@@ -28,10 +25,10 @@ s_CPUE_int = SharedArray(Float64, trips);
 s_Tau = SharedArray(Float64, (length(sn), trips)); 
 s_Tau_s_R_int = SharedArray(Float64, (length(sn), trips)); 
 
-CPUE = Array(Float64, length(sn));
-CPUE_var = Array(Float64, length(sn)); 
-Tau = Array(Float64, length(sn)); 
-Tau_s_R = Array(Float64, length(sn)); 
+CPUE = Array(Float64, (length(sn), PC_n));
+CPUE_var = Array(Float64, (length(sn), PC_n)); 
+Tau = Array(Float64, (length(sn), PC_n)); 
+Tau_s_R = Array(Float64, (length(sn), PC_n)); 
 
 #Tau_s_I = Array(Float64,length(sn),trips); 
 
@@ -40,26 +37,29 @@ for i = 1:length(sn)
 	SN = ones(PC_n,PC_n) .* sn[i];
 
 	for k = 1:PC_n 
-		## tripV is a vector of tuples [i, trip id] 
 		#map the parallel trips
+		#Verbose way of computing trips in parallel and
+		#writing summary and intermediate statistics
 		
 		sum_Tau = @parallel (+) for j=1:trips
 			fish,cons,OUT = init_equilibrium();
-			time_to_first_school = make_trip(fish,cons,SN,0);
+			time_to_first_school = make_trip(fish,cons,SN,1);
 			#save the CPUE of each trip 
 			s_CPUE_int[j] = mean(cons.cs ./ cons.Dist);  
 			s_Tau_s_R_int[j] = mean(cons.Dist_s_R); 
 			mean(cons.Dist); #return sum of Tau
 		end
+
 		mean_Tau = sum_Tau / trips; 
-		Tau[k] = mean_Tau; 
-		Tau_s_R[k] = mean(s_Tau_s_R_int); 
+		Tau[i,k] = mean_Tau; 
+		Tau_s_R[i,k] = mean(s_Tau_s_R_int); 
+
 		mean_CPUE = mean(s_CPUE_int); 
-		CPUE[k] = mean_CPUE; 
-		CPUE_var[k] = var(s_CPUE_int); 
+		CPUE[i,k] = mean_CPUE; 
+		CPUE_var[i,k] = var(s_CPUE_int); 
+
 		#calculate average time spent over the trips and write
-		#for this specific fisherman
-		 
+		#for this specific fisherman		 
 		println("mean for fisherman $k is $mean_CPUE"); 
 	end	
 	println(i/length(sn))

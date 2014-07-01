@@ -29,11 +29,11 @@ end
 
 #### Output variable for plotting
 type Output
-    fish_xy::Array{Float64}
-    cons_xy::Array{Float64}
-    schl_xy::Array{Float64}
-    cons_H::Array{Float64}
-    cons_CN::Array{Float64}
+    fish_xy::SharedArray{Float64}
+    cons_xy::SharedArray{Float64}
+    schl_xy::SharedArray{Float64}
+    cons_H::SharedArray{Float64}
+    cons_CN::SharedArray{Float64}
 end
 
 end

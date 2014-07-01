@@ -1,5 +1,12 @@
 Agent Based Model for the CNH project
 
+7/1 --------------------------
+Output is not working for parallelized runs (i.e. multiple trips); data is coarse grained
+to write to output every other iteration for the first 20 and every 20 iterations thereafter.
+
+sn series of experiments now supported again. 
+
+
 6/30 --------------------------
 Parallelized code. Incorporated initial extraction of tau_s_r. OUT temporarily not operational. 
 
