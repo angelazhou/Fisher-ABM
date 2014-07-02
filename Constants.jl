@@ -7,7 +7,7 @@ export PS_n, PS_p
 
 ###### PARAMETERS / CONSTANTS for a seasonal run
 #### Domain parameters
-const GRD_nx = 100.;
+const GRD_nx = 200;
 const GRD_dx = 1.;
 const GRD_mx = GRD_nx.*GRD_dx;
 const GRD_x  = [0:GRD_dx:GRD_mx];
@@ -22,7 +22,7 @@ const PF_sig  = 3.; # distance parameter
 
 ##### Fisher parameters
 const PC_n    = 1; # number of fishers
-const PC_v    = .6; # speed of fishers (km per time)
+const PC_v    = .3; # speed of fishers (km per time)
 const PC_h    = .5; # distance at which fishers can catch fish (km)
 const PC_r1   = .1; # correlated random walk constant (steam)
 const PC_r2   = .3; # correlated random walk constant (search)

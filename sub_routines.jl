@@ -44,12 +44,13 @@ while minimum(cons.cs) .< (PF_n*PS_n)
         	OUT.cons_xy = cat(3,OUT.cons_xy,cons.x);
         	OUT.schl_xy = cat(3,OUT.schl_xy,fish.sx);
         	OUT.cons_H  = cat(3,OUT.cons_H,cons.H);
-	
+		OUT.states = cat(2,OUT.states,cons.MI); 	
 	elseif TIME%20 == 0
 		OUT.fish_xy = cat(3,OUT.fish_xy,fish.fx);
         	OUT.cons_xy = cat(3,OUT.cons_xy,cons.x);
         	OUT.schl_xy = cat(3,OUT.schl_xy,fish.sx);
         	OUT.cons_H  = cat(3,OUT.cons_H,cons.H);
+		OUT.states = cat(2,OUT.states,cons.MI); 	
 	end
     end
 end

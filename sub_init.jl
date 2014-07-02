@@ -35,7 +35,12 @@ JJ  	 = zeros(Int,PC_n); # index of nearest fish (0 if nothing near)
 KK  	 = zeros(Int,PC_n); # index of catch [0,1]
 cs  	 = zeros(Float64,PC_n);
 D   	 = ones(Float64,PC_n);
-Dist_s_R = zeros(Float64,PC_n); 
+
+## Store the time to first school
+Dist_s_R = zeros(Float64,PC_n);
+## Store the behavioral states with time
+Cons_states = zeros(Float64,PC_n,2);
+ 
 cons = Fishers(Cons_xy,Cons_H,Cons_s,MI,Cons_cn,Dmin,DXY,VR,JJ,KK,cs,D,Dist_s_R);
 
 ##### Init Social network (no friends)
@@ -43,7 +48,7 @@ SN = ones(PC_n,PC_n) .* eps();
 for j = 1:PC_n; SN[j,j] = 1; end;
 
 ##### Initialize output storage
-global OUT        = Output(Fish_fx, Cons_xy, Fish_sx, Cons_H , Cons_cn);
+global OUT        = Output(Fish_fx, Cons_xy, Fish_sx, Cons_H , Cons_cn, Cons_states);
 
 return fish,cons,SN,OUT
 end

@@ -1,6 +1,8 @@
 Agent Based Model for the CNH project
 
 7/1 --------------------------
+TODO LIST: incorporate possible flags for different OS compatibility issues?? 
+
 Output is not working for parallelized runs (i.e. multiple trips); data is coarse grained
 to write to output every other iteration for the first 20 and every 20 iterations thereafter.
 

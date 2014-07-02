@@ -15,7 +15,11 @@ type Fishers
     x::Array{Float64} # location
     H::Array{Float64} # harvest count
     S::Array{Int} # make(1)/break(-1) friendships
-    MI::Array{Int} # index of steaming or searching
+    MI::Array{Int} # index of steaming or searching 
+	##7/1 update: also encapsulates fishing behavior
+	##0: steaming
+	##1: searching
+	##2: physically catching fish
     CN::Array{Int} # contact network
     Dmin::Array{Float64} # distance to nearest fish
     DXY::Array{Float64} # direction vector (unit)
@@ -34,6 +38,7 @@ type Output
     schl_xy::SharedArray{Float64}
     cons_H::SharedArray{Float64}
     cons_CN::SharedArray{Float64}
+    states::SharedArray{Float64}
 end
 
 end
