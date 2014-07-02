@@ -14,7 +14,8 @@
 end
 
 ## simulate a simple scenario
-function sim_simple()
+## Takes in a flag to declare whether or not output is written
+function sim_simple( OUT_FLAG::Int )
 sn = linspace(1e-6,1,10);   # types of prosociality
 
 trips = 1; # number of repeat## Change CPUE, Tau to shared arrays (?) 
@@ -43,7 +44,7 @@ for i = 1:length(sn)
 		
 		sum_Tau = @parallel (+) for j=1:trips
 			fish,cons,OUT = init_equilibrium();
-			time_to_first_school = make_trip(fish,cons,SN,1);
+			time_to_first_school = make_trip(fish,cons,SN,OUT_FLAG)
 			#save the CPUE of each trip 
 			s_CPUE_int[j] = mean(cons.cs ./ cons.Dist);  
 			s_Tau_s_R_int[j] = mean(cons.Dist_s_R); 

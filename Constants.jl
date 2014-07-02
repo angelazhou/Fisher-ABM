@@ -7,7 +7,7 @@ export PS_n, PS_p
 
 ###### PARAMETERS / CONSTANTS for a seasonal run
 #### Domain parameters
-const GRD_nx = 200;
+const GRD_nx = 150;
 const GRD_dx = 1.;
 const GRD_mx = GRD_nx.*GRD_dx;
 const GRD_x  = [0:GRD_dx:GRD_mx];
@@ -30,7 +30,8 @@ const PC_rp   = 0.3; # steam / search switching probability
 
 ##### Parameters that are derived
 #currently 0.032
-const PS_p   = 1 ./ (4.*(GRD_mx ./ (2*PC_v))); # probability school will move
+const PS_p   = 0; #TEMPORARY CHANGE for computing tau_s_r
+#1 ./ (4.*(GRD_mx ./ (2*PC_v))); # probability school will move
 const PC_q	 = 0.05; # prob of catching fish
 const PC_f   = PF_sig; # radius of fish finder (km)
 
