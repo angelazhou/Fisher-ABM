@@ -5,9 +5,17 @@
 global TIME = 0;
 time_of_first_school = 0; 
 #while min of cumulative harvest is less than all fish in the region
-while minimum(cons.cs) .< (PF_n*PS_n)
+##7/2 edit for multiple fishers: 
+## terminate when total cum harvest is greater than total # fish
+
+while sum(cons.cs) .< (PF_n*PS_n)
             #! stops when every fisherman has caught the # fish in the systemq
 	TIME += 1;
+#	if TIME%1000==0 
+#		println("OK at time ", TIME); 
+#		println("cum harvest: ", cons.cs); 
+#	end
+
     ## Distances
     #!calculate distances between fish and fishermen? + search/steam switch
     D,Dx,Dy,cons.MI = fnc_distance(fish.fx,cons.x,cons.MI);

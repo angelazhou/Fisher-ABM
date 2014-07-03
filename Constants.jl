@@ -21,7 +21,7 @@ const PF_N 	  = PF_n * PS_n # total number of fish in the system
 const PF_sig  = 3.; # distance parameter
 
 ##### Fisher parameters
-const PC_n    = 1; # number of fishers
+const PC_n    = 7; # number of fishers
 const PC_v    = .3; # speed of fishers (km per time)
 const PC_h    = .5; # distance at which fishers can catch fish (km)
 const PC_r1   = .1; # correlated random walk constant (steam)

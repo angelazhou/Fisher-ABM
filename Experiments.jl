@@ -2,7 +2,7 @@
 ## simulate a simple scenario
 function sim_simple()
 sn = linspace(1e-6,1,10);   # types of prosociality
-trips = 20; # number of repeats
+trips = 10; # number of repeats
 CPUE = Array(Float64,length(sn),trips);
 Tau  = Array(Float64,length(sn),trips);
 Tau_s_R = Array(Float64,length(sn),trips); 

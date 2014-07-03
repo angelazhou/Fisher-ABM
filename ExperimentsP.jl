@@ -18,7 +18,7 @@ end
 function sim_simple( OUT_FLAG::Int )
 sn = linspace(1e-6,1,10);   # types of prosociality
 
-trips = 1; # number of repeat## Change CPUE, Tau to shared arrays (?) 
+trips = 40; # number of repeat## Change CPUE, Tau to shared arrays (?) 
 
 s_CPUE = SharedArray(Float64, (length(sn), trips)); 
 
@@ -36,8 +36,8 @@ Tau_s_R = Array(Float64, (length(sn), PC_n));
 for i = 1:length(sn)
 	## modulate social network
 	SN = ones(PC_n,PC_n) .* sn[i];
-
 	for k = 1:PC_n 
+		println("fisher ", k, "OK")
 		#map the parallel trips
 		#Verbose way of computing trips in parallel and
 		#writing summary and intermediate statistics
@@ -50,7 +50,6 @@ for i = 1:length(sn)
 			s_Tau_s_R_int[j] = mean(cons.Dist_s_R); 
 			mean(cons.Dist); #return sum of Tau
 		end
-
 		mean_Tau = sum_Tau / trips; 
 		Tau[i,k] = mean_Tau; 
 		Tau_s_R[i,k] = mean(s_Tau_s_R_int); 
@@ -62,6 +61,7 @@ for i = 1:length(sn)
 		#calculate average time spent over the trips and write
 		#for this specific fisherman		 
 		println("mean for fisherman $k is $mean_CPUE"); 
+		## QUESTION: record CPUE for each fisherman, each time? 
 	end	
 	println(i/length(sn))
 end

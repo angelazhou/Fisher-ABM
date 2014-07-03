@@ -31,7 +31,7 @@ println("Libraries loaded: working:")
 
 
 
-@time CPUE,s_CPUE_int, CPUE_var, Tau, s_Tau_s_R = sim_simple(1)
+@time CPUE,s_CPUE_int, CPUE_var, Tau, s_Tau_s_R = sim_simple(0)
 println("new mean-CPUE array: $CPUE")
 println("Intermediate CPUE array: $s_CPUE_int")
 println("Average Tau: ", mean(Tau))
