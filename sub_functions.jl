@@ -5,20 +5,20 @@
 #! If random numbers are less than adjacency measure (friendship) they both
 #! contact; else both do not contact. Return the network 2D array.
 function fnc_contact(SN,CN)
-# for i = 1:PC_n
-#     for j = i:PC_n
-#         f1 = SN[i,j];
-#         f2 = SN[j,i];
-#         RN = rand(2,1);
-#         if RN[1] < f1 && RN[2] < f2
-#             CN[i,j] = 1;
-#             CN[j,i] = 1;
-#         else
-#             CN[i,j] = 0;
-#             CN[j,i] = 0;
-#         end
-#     end
-# end
+ for i = 1:PC_n
+     for j = i:PC_n
+         f1 = SN[i,j];
+         f2 = SN[j,i];
+         RN = rand(2,1);
+         if RN[1] < f1 && RN[2] < f2
+             CN[i,j] = 1;
+             CN[j,i] = 1;
+         else
+             CN[i,j] = 0;
+             CN[j,i] = 0;
+         end
+     end
+ end
 
  for i = 1:PC_n
          CN[i,i] = 1; 

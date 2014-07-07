@@ -10,7 +10,7 @@ require("ExperimentsP.jl");
 println("Libraries loaded")
 trials = 1; 
 
-f = open("TauSR_out-7fish-40trip.txt","w");
+f = open("TauSR_out-social-6fish-40trip.txt","w");
 
 
 for i = 1:trials
@@ -21,7 +21,8 @@ for i = 1:trials
 	writedlm(f, Tau, '\n')
 	write(f, "tau_s_r: \n")
 	writedlm(f, s_Tau_s_R, '\t'); 
-
+	write(f, "CPUE: \n")
+	writedlm(f,CPUE, '\t'); 
 end
 
 close(f)
