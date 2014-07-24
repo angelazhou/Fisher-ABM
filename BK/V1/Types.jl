@@ -2,7 +2,6 @@ module Types
 
 export Fish, Fishers, Output
 
-
 #### Define Fish type
 type Fish
     fx::Array{Float64} # fish location in xy
@@ -12,7 +11,7 @@ end
 
 #### Define Fisher type
 type Fishers
-    x::Array{Float64} # location
+     x::Array{Float64} # location
     H::Array{Float64} # harvest count
     S::Array{Int} # make(1)/break(-1) friendships
     MI::Array{Int} # index of steaming or searching
@@ -32,7 +31,6 @@ type Output
     cons_xy::Array{Float64}
     schl_xy::Array{Float64}
     cons_H::Array{Float64}
-    cons_CN::Array{Int}
 end
 
 end

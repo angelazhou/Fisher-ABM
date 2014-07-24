@@ -1,4 +1,0 @@
-using NPZ
-
-X = [1 2 3]; 
-npzwrite("../Data/x.npy", X);

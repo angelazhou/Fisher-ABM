@@ -2,7 +2,6 @@ module Types
 
 export Fish, Fishers, Output
 
-
 #### Define Fish type
 type Fish
     fx::Array{Float64} # fish location in xy
@@ -13,32 +12,31 @@ end
 #### Define Fisher type
 type Fishers
     x::Array{Float64} # location
-    H::Array{Float64} # harvest count
-    S::Array{Int} # make(1)/break(-1) friendships
-    MI::Array{Int} # index of steaming or searching 
-	##7/1 update: also encapsulates fishing behavior
-	##0: steaming
-	##1: searching
-	##2: physically catching fish
-    CN::Array{Int} # contact network
+    Ni::Array{Int} # index of nearest fish
     Dmin::Array{Float64} # distance to nearest fish
-    DXY::Array{Float64} # direction vector (unit)
-    VR::Array{Float64} # speed
-    JJ::Array{Int} # index of nearest fish
-    KK::Array{Int} # 1/0 harvest index
-    cs::Array{Float64} # cumulative harvest
-    Dist::Array{Float64} # cumulative distance traveled 
-    Dist_s_R::Array{Float64} # record time of first school encounter
+    DXY::Array{Float64} # direction unit vector
+	H::Array{Float64} # harvest count (1=catch, 0=no_catch)
+    S::Array{Int} # make(1)/break(-1) friendships
+    MI::Array{Int} # index of steaming or searching
+    SN::Array{Float64} # social network
+    Ts::Array{Float64} # running mean time between schools for each fisher
+    ts::Array{Float64} # current time between schools for each fisher
+    ns::Array{Int} # number of schools visited
+    states::Array{Int} #keep track of the current states of system
+    f1::Array{Int} #keep track of amt time spent in school so far
+    wrapX::Array{Int}
+    wrapY::Array{Int}
+    V::Array{Float64} # speed
+
 end
 
 #### Output variable for plotting
 type Output
-    fish_xy::SharedArray{Float64}
-    cons_xy::SharedArray{Float64}
-    schl_xy::SharedArray{Float64}
-    cons_H::SharedArray{Float64}
-    cons_CN::SharedArray{Float64}
-    states::SharedArray{Float64}
+    fish_xy::Array{Float64}
+    cons_xy::Array{Float64}
+    schl_xy::Array{Float64}
+    cons_H::Array{Float64}
+    states::Array{Int}
 end
 
 end

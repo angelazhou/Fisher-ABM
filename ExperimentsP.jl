@@ -16,9 +16,10 @@ end
 ## simulate a simple scenario
 ## Takes in a flag to declare whether or not output is written
 function sim_simple( OUT_FLAG::Int )
-sn = linspace(1e-6,1,10);   # types of prosociality
+#################### 7/9 CHANGED
+sn = linspace(1e-6,1,1);   # types of prosociality
 
-trips = 40; # number of repeat## Change CPUE, Tau to shared arrays (?) 
+trips = 1; # number of repeat## Change CPUE, Tau to shared arrays (?) 
 
 s_CPUE = SharedArray(Float64, (length(sn), trips)); 
 

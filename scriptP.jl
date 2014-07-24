@@ -13,14 +13,15 @@
 @everywhere using Devectorize #implement devectorizing optimizations
 @everywhere using NPZ
 @everywhere using Types, Constants
-
+@everywhere using Distance
 ### Specify the specific argument for this particular 
 argument = "randomNetwork"; 
 
 require("sub_functions.jl");
 require("sub_init.jl");
 require("sub_routines.jl");
-require("ExperimentsP.jl");
+require("Experiments.jl");
+require("trajStats.jl");
 println("Libraries loaded: working:")
 
 ##fish,cons,OUT = init_equilibrium();
@@ -29,19 +30,58 @@ println("Libraries loaded: working:")
 #SN matrix for social network (diagonals 1, self-adjacent)
 
 
+#Write to file
 
+@time wrapX, wrapY, OUT = simple()
 
-@time CPUE,s_CPUE_int, CPUE_var, Tau, s_Tau_s_R = sim_simple(0)
-println("new mean-CPUE array: $CPUE")
-println("Intermediate CPUE array: $s_CPUE_int")
-println("Average Tau: ", mean(Tau))
-println("Average time to first school: ", (s_Tau_s_R))
-
-
-npzwrite("Data_fish_randomnetwork.npz", sdata(OUT.fish_xy))
-npzwrite("Data_fishers_randomnetwork.npz", sdata(OUT.cons_xy) )
-npzwrite("Data_clusters_randomnetwork.npz", sdata(OUT.schl_xy) )
-npzwrite("Data_harvest_randomnetwork.npz", sdata(OUT.cons_H) )
-npzwrite("Data_contact_randomnetwork.npz", sdata(OUT.cons_CN) )
-npzwrite("Data_states.npz", sdata(OUT.states) )
+npzwrite("Data_fish_classify2.npz", OUT.fish_xy)
+npzwrite("Data_clusters_classify2.npz", OUT.schl_xy )
+npzwrite("Data_harvest_classify2.npz", OUT.cons_H )
+#npzwrite("Data_contact_classify2.npz", OUT.cons_CN )
+#npzwrite("Data_states2.npz", OUT.states )
 #npzwrite("Data_simple_randomnetwork.npz", ["x"=>1, "CPUE"=>CPUE, "Tau"=>Tau])
+
+
+#println("new mean-CPUE array: $CPUE")
+#println("Intermediate CPUE array: $s_CPUE_int")
+#println("Average Tau: ", mean(Tau))
+#println("Average time to first school: ", (s_Tau_s_R))
+
+@time speeds, angles, MSSI, c, p, b, lag, sinuosity, dists = stats(OUT.cons_xy,OUT.states,3,1, wrapX, wrapY); 
+
+for i = 1:size(speeds)[1]
+
+	f = open("ss-speeds-$i", "w"); 
+	fa = open("ss-angles-$i", "w"); 
+	fm = open("ss-MSSI-$i", "w"); 
+	fp = open("ss-p-$i","w"); 
+	fb = open("ss-b-$i","w"); 
+	fc = open("ss-c-$i","w"); 
+	flag = open("ss-lagDist-$i","w"); 
+	fsin = open("ss-sinuosity-$i","w"); 
+
+
+	writedlm(f,speeds[i,:],'\n');
+	writedlm(fa,angles[i,:],'\n'); 
+	writedlm(fm,MSSI[i,:],'\n'); 
+
+	writedlm(fp,p[i,:],'\n'); 
+	writedlm(fb,b[i,:],'\n'); 
+	writedlm(fc,c[i,:],'\n'); 
+	writedlm(flag,lag[i,:],'\n'); 
+	writedlm(fsin,sinuosity[i,:],'\n'); 
+
+	close(f); 
+	close(fa); 
+	close(fm); 
+
+	close(fp); 
+	close(fb); 
+	close(fc); 
+	close(flag); 
+	close(fsin); 
+
+
+end
+
+
