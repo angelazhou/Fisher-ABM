@@ -17,7 +17,7 @@ const GRD_x  = [0:GRD_dx:GRD_mx];
 
 
 ##### School parameters
-const PS_n   = 1; # number of schools
+const PS_n   = 3; # number of schools
 const PS_p   = 0.005; # probability school will move
 
 #### Fish parameters
