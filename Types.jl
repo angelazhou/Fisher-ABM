@@ -23,6 +23,7 @@ type Fishers
     ts::Array{Float64} # current time between schools for each fisher
     ns::Array{Int} # number of schools visited
     states::Array{Int} #keep track of the current states of system
+    info_sh::Array{Int} #back out info sharing events
     f1::Array{Int} #keep track of amt time spent in school so far
     wrapX::Array{Int}
     wrapY::Array{Int}
@@ -37,6 +38,7 @@ type Output
     schl_xy::Array{Float64}
     cons_H::Array{Float64}
     states::Array{Int}
+    info_sh::Array{Int}
 end
 
 end

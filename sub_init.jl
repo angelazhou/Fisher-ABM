@@ -37,6 +37,7 @@ cons_ns  = zeros(PC_n);
 cons_sn  = ones(PC_n,PC_n) .* eps(); 
 for j = 1:PC_n; cons_sn[j,j] = 1; end;
 cons_states = zeros(Int, PC_n); 
+cons_info_sh = zeros(Int, PC_n); 
 f1 = zeros(Int, PC_n);
 cons_wrapX = zeros(PC_n); 
 cons_wrapY = zeros(PC_n); 
@@ -44,8 +45,8 @@ cons_v = ones(PC_n) .* PC_v;
 ##### Initialize
 fish = Fish(fish_fx,fish_fs,fish_sx);
 cons = Fishers(cons_xy,cons_Ni,cons_Nd,cons_dx,
-			   cons_H,cons_s,cons_mi,cons_sn,cons_Ts,cons_ts,cons_ns,cons_states,f1,cons_wrapX, cons_wrapY, cons_v); 
-global OUT  = Output(fish_fx,cons_xy,fish_sx,cons_H,cons_states);
+			   cons_H,cons_s,cons_mi,cons_sn,cons_Ts,cons_ts,cons_ns,cons_states,cons_info_sh,f1,cons_wrapX, cons_wrapY, cons_v); 
+global OUT  = Output(fish_fx,cons_xy,fish_sx,cons_H,cons_states,cons_info_sh);
 
 return fish,cons,OUT
 end

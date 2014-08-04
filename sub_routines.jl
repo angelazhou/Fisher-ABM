@@ -114,11 +114,12 @@ while minimum(cons.H) .< (PF_n*PS_n.*5)
 	cons.wrapX = cat(2,cons.wrapX,wrapX); 
 	cons.wrapY = cat(2,cons.wrapY,wrapY);  
 
-         OUT.fish_xy = cat(3,OUT.fish_xy,fish.fx);
-         OUT.cons_xy = cat(3,OUT.cons_xy,cons.x);
-         OUT.schl_xy = cat(3,OUT.schl_xy,fish.sx);
-         OUT.cons_H  = cat(2,OUT.cons_H,cons.H);
+     OUT.fish_xy = cat(3,OUT.fish_xy,fish.fx);
+     OUT.cons_xy = cat(3,OUT.cons_xy,cons.x);
+     OUT.schl_xy = cat(3,OUT.schl_xy,fish.sx);
+     OUT.cons_H  = cat(2,OUT.cons_H,cons.H);
 	 OUT.states = cat(2,OUT.states,cons.states); 
+     OUT.info_sh = cat(2,OUT.info_sh, cons.info_sh); 
      	end
       end
  	TIME += 1; 
